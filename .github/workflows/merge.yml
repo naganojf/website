@@ -4,7 +4,7 @@ permissions:
   pull-requests: write
   contents: write
 jobs:
-  auto-merge:
+  approve:
     runs-on: ubuntu-latest
     env:
       PR_URL: ${{github.event.pull_request.html_url}}
@@ -12,6 +12,12 @@ jobs:
     steps:
       - name: Approve PR
         run: gh pr review "$PR_URL" --approve
+  merge:
+    runs-on: ubuntu-latest
+    env:
+      PR_URL: ${{github.event.pull_request.html_url}}
+      GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+    steps:
       - name: Enable auto-merge
         run: gh pr merge --merge --auto "$PR_URL"
   test:
