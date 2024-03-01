@@ -2,18 +2,30 @@
 import { Image } from 'astro:assets'
 import { createClient } from 'microcms-js-sdk'
 
+interface ResponseEntry {
+  id: string
+  createdAt: string
+  publishedAt: string
+  revisedAt: string
+  image: {
+    url: string
+    height: number
+    width: number
+  }
+  alt: string
+}
+
 const client = createClient({
   serviceDomain: import.meta.env.SECRET_MCMS_DOMAIN,
   apiKey: import.meta.env.SECRET_MCMS_API_KEY,
 })
 const res = await client.get({ endpoint: 'carousel' })
-console.log(res.contents)
 ---
 
 <div class="w-full relative max-w-[1024px] aspect-[1200/630] mx-auto">
   <div class="swiper w-full">
     <div class="swiper-wrapper">
-      {res.contents.map(entry => (
+      {res.contents.map((entry: ResponseEntry) => (
       <div class="swiper-slide">
         <Image src={entry.image.url + '?w=1024'} alt={entry.alt} inferSize={true} class="w-full aspect-[1200/630] object-cover object-center" />
         </div>
