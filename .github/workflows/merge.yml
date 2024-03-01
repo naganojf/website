@@ -1,13 +1,38 @@
-name: Auto Merge
+name: PR Merge
 on: [pull_request]
 permissions:
   pull-requests: write
   contents: write
 jobs:
-  test:
+  type-check:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout your repository using git
-        uses: actions/checkout@v3
-      - name: Install, build, and upload your site output
-        uses: withastro/action@v0
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create dot env file
+        run: |
+          echo "SECRET_MCMS_DOMAIN=${{ secrets.MCMS_DOMAIN }}" > .env
+          echo "SECRET_MCMS_API_KEY=${{ secrets.MCMS_API_KEY }}" >> .env
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup yarn
+        run: |
+          corepack enable
+          corepack prepare yarn@1.22.19 --activate
+
+      - name: Setup cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        run: yarn --check-files --frozen-lockfile --non-interactive
+
+      - name: Type check
+        run: yarn type-check
