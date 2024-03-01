@@ -1,0 +1,85 @@
+---
+import { Image } from 'astro:assets'
+import { createClient } from 'microcms-js-sdk'
+
+interface ResponseEntry {
+  id: string
+  createdAt: string
+  publishedAt: string
+  revisedAt: string
+  image: {
+    url: string
+    height: number
+    width: number
+  }
+  alt: string
+}
+
+const client = createClient({
+  serviceDomain: import.meta.env.SECRET_MCMS_DOMAIN,
+  apiKey: import.meta.env.SECRET_MCMS_API_KEY,
+})
+const res = await client.get({ endpoint: 'carousel' })
+---
+
+<div class="w-full relative max-w-[1024px] aspect-[1200/630] mx-auto">
+  <div class="swiper w-full">
+    <div class="swiper-wrapper">
+      {res.contents.map((entry: ResponseEntry) => (
+      <div class="swiper-slide">
+        <Image src={entry.image.url + '?w=1024'} alt={entry.alt} inferSize={true} class="w-full aspect-[1200/630] object-cover object-center" />
+        </div>
+      ))}
+    </div>
+  </div>
+  <div class="top-0 left-0 absolute h-full flex items-center">
+    <div class="swiper-button-prev">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+      </svg>
+    </div>
+  </div>
+  <div class="top-0 right-0 absolute h-full flex items-center">
+    <div class="swiper-button-next">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+      </svg>
+    </div>
+  </div>
+</div>
+<div class="swiper-pagination" />
+
+<script>
+  import Swiper from 'swiper'
+  import { Autoplay, Navigation, Pagination } from 'swiper/modules'
+  import 'swiper/css'
+  import 'swiper/css/pagination'
+  const swiper = new Swiper('.swiper', {
+    loop: true,
+    speed: 1000,
+    autoplay: {
+      delay: 10000,
+    },
+    navigation: {
+      prevEl: '.swiper-button-prev',
+      nextEl: '.swiper-button-next',
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    modules: [Autoplay, Navigation, Pagination],
+  })
+</script>
+
+<style is:global>
+  .swiper-button-prev, .swiper-button-next {
+    @apply btn min-h-0 w-8 h-8 p-0 rounded-full justify-center items-center m-4 z-50;
+  }
+  .swiper-pagination {
+    @apply static mx-auto w-auto !important;
+  }
+  .swiper-pagination-bullet {
+    @apply bg-base-content !important;
+  }
+</style>
