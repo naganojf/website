@@ -22,7 +22,7 @@ const client = createClient({
 const res = await client.get({ endpoint: 'carousel' })
 ---
 
-<div class="w-full relative max-w-[1024px] aspect-[1200/630] mx-auto">
+<div class="relative">
   <div class="swiper w-full">
     <div class="swiper-wrapper">
       {res.contents.map((entry: ResponseEntry) => (
