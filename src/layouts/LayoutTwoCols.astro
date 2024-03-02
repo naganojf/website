@@ -1,0 +1,21 @@
+---
+import Layout from './Layout.astro'
+
+export interface Props {
+  title: string
+  desc: string
+}
+
+const { title, desc } = Astro.props
+---
+
+<Layout title={title} desc={desc}>
+  <div class="grid grid-cols-3">
+    <div class="col-span-3 lg:col-span-2">
+      <slot name="left" />
+    </div>
+    <div class="hidden lg:block">
+      <slot name="right" />
+    </div>
+  </div>
+</Layout>

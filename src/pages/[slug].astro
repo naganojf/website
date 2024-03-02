@@ -1,5 +1,6 @@
 ---
-import Layout from '../layouts/Layout.astro'
+import LayoutTwoCols from '../layouts/LayoutTwoCols.astro'
+import Notices from '../components/Notices.astro'
 import { createClient } from 'microcms-js-sdk'
 
 interface ResponseEntry {
@@ -33,9 +34,12 @@ export const getStaticPaths = async () => {
 const { title, description, contents } = Astro.props
 ---
 
-<Layout title={`${title} | 長野ジュニアフォーラム`} desc={description}>
-  <div set:html={contents} class="prose p-6" />
-</Layout>
+<LayoutTwoCols title={`${title} | 長野ジュニアフォーラム`} desc={description}>
+  <div slot="left" set:html={contents} class="prose p-6 max-w-full" />
+  <div slot="right" class="p-6">
+    <Notices />
+  </div>
+</LayoutTwoCols>
 
 <style is:global>
   h2 {
