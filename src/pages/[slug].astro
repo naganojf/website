@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { createClient } from 'microcms-js-sdk'
+
+interface ResponseEntry {
+  id: string
+  createdAt: string
+  publishedAt: string
+  revisedAt: string
+  slug: string
+  title: string
+  description: string
+  image?: {
+    url: string
+    height: number
+    width: number
+  }
+  dblcol: boolean
+  contents: string
+}
+
+export const getStaticPaths = async () => {
+  const client = createClient({
+    serviceDomain: import.meta.env.SECRET_MCMS_DOMAIN,
+    apiKey: import.meta.env.SECRET_MCMS_API_KEY,
+  })
+  const res = await client.get({ endpoint: 'pages' })
+  return res.contents.map((entry: ResponseEntry) => ({
+  params: { slug: entry.slug }, props: { title: entry.title, description: entry.description, contents: entry.contents }
+  }))
+}
+
+const { title, description, contents } = Astro.props
+---
+
+<Layout title={`${title} | 長野ジュニアフォーラム`} desc={description}>
+  <div set:html={contents} class="prose p-6" />
+</Layout>
+
+<style is:global>
+  h2 {
+    @apply bg-base-200 p-3 rounded-box !important;
+  }
+</style>
