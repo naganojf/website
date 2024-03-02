@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro'
 import Carousel from '../components/Carousel.astro'
 import Card from '../components/Card.astro'
+import Notices from '../components/Notices.astro'
 import { createClient } from 'microcms-js-sdk'
 
 interface ResponseEntry {
@@ -30,15 +31,18 @@ const res = await client.get({ endpoint: 'pages' })
 
 <Layout title="長野ジュニアフォーラム" desc="幼児〜中学生の個別指導">
   <Carousel />
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
-    {res.contents.map((entry: ResponseEntry) => (
-      <Card
-        slug={entry.slug}
-        title={entry.title}
-        description={entry.description}
-        image={entry.image?.url}
-        dblcol={entry.dblcol}
-      />
-    ))}
+  <div class="p-6 flex flex-col gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {res.contents.map((entry: ResponseEntry) => (
+        <Card
+          slug={entry.slug}
+          title={entry.title}
+          description={entry.description}
+          image={entry.image?.url}
+          dblcol={entry.dblcol}
+        />
+      ))}
+    </div>
+    <Notices />
   </div>
 </Layout>
