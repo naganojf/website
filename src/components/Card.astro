@@ -21,7 +21,7 @@ const { slug, title, description, image, dblcol } = Astro.props;
   <div class="grow flex flex-col gap-4">
     <div class="grow">
       <h2 class="font-bold text-xl">{title}</h2>
-      <p>{description}</p>
+      <pre class="whitespace-pre-wrap">{description}</pre>
     </div>
     <div class="flex justify-end">
       <a href={`/${slug}`}>
