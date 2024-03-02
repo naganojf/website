@@ -29,7 +29,7 @@ const notices = res.contents.sort((a: ResponseEntry, b: ResponseEntry) => (
     お知らせ
   </h2>
   <ul>
-    {notices.map(notice => (
+    {notices.map((notice: ResponseEntry) => (
     <li class="p-3 rounded-xl hover:bg-base-300">
       <a href={`/notices#${notice.id}`}>
         <div class="flex justify-start items-center gap-4">
