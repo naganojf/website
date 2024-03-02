@@ -24,7 +24,9 @@ const { slug, title, description, image, dblcol } = Astro.props;
       <p>{description}</p>
     </div>
     <div class="flex justify-end">
-      <button class="btn btn-neutral">詳しく見る</button>
+      <a href={`/${slug}`}>
+        <button class="btn btn-neutral">詳しく見る</button>
+      </a>
     </div>
   </div>
 </div>
