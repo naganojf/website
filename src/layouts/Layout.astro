@@ -25,8 +25,11 @@ const { title, desc } = Astro.props
   </head>
   <body class="h-full">
     <div class="navbar flex bg-base-200 p-4">
-      <div class="grow">
-        <a href="/" class="btn btn-ghost normal-case text-2xl font-bold">長野ジュニアフォーラム</a>
+      <div class="grow flex flex-col items-start">
+        <a href="/" class="btn btn-ghost normal-case px-0 text-3xl font-bold">長野ジュニアフォーラム</a>
+        <div class="mt-1 rounded bg-accent text-white/[.85] px-3 py-1 ml-2 font-semibold">
+          幼児〜中学生の個別指導
+        </div>
       </div>
       <div class="flex-none pl-4 lg:hidden">
         <label for="menu-drawer" class="btn btn-primary btn-circle">
