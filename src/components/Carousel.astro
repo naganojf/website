@@ -27,7 +27,16 @@ const res = await client.get({ endpoint: 'carousel' })
     <div class="swiper-wrapper">
       {res.contents.map((entry: ResponseEntry) => (
       <div class="swiper-slide">
-        <Picture src={entry.image.url + '?w=1024'} formats={['avif', 'webp']} alt={entry.alt} inferSize={true} loading="eager" class="w-full aspect-[1200/630] object-cover object-center" />
+        <Picture
+          src={entry.image.url}
+          formats={['avif', 'webp']}
+          alt={entry.alt}
+          widths={[640, 768, 1024]}
+          sizes={`(max-width: 640px) 640px, (max-width: 768px) 768px, 1024px`}
+          inferSize={true}
+          loading="eager"
+          class="w-full aspect-[1200/630] object-cover object-center"
+          />
         </div>
       ))}
     </div>
