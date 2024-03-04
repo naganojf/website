@@ -1,0 +1,53 @@
+---
+import { createClient } from 'microcms-js-sdk'
+
+interface ResponseEntry {
+  id: string
+  createdAt: string
+  publishedAt: string
+  revisedAt: string
+  slug: string
+  title: string
+  description: string
+  image?: {
+    url: string
+    height: number
+    width: number
+  }
+  dblcol: boolean
+  contents: string
+}
+
+const client = createClient({
+  serviceDomain: import.meta.env.SECRET_MCMS_DOMAIN,
+  apiKey: import.meta.env.SECRET_MCMS_API_KEY,
+})
+const res = await client.get({ endpoint: 'pages' })
+const list = [
+  { title: 'ホーム', link: '/' },
+  ...res.contents.map((page: ResponseEntry) => (
+    { title: page.title, link: `/${page.slug}` }
+  )),
+  { title: 'お知らせ', link: '/notices' },
+]
+---
+
+<footer class="mt-6 p-10 bg-base-200 text-base-content">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-[1024px] mx-auto">
+    <nav>
+      <h6 class="footer-title">メニュー</h6>
+      {list.map(item => (
+        <a href={item.link} class="block text-sm p-2 hover:underline">
+          {item.title}
+        </a>
+      ))}
+    </nav> 
+    <div class="text-sm">
+      <p class="text-2xl font-bold mb-3">長野ジュニアフォーラム</p>
+      <p class="mt-2">長野市○○0-0-0</p>
+      <p class="mt-2">TEL: 000-000-0000</p>
+      <p class="mt-2">email: hoge@example.com</p>
+    </div>
+  </div>
+  <div class="mt-10 text-sm text-center">&copy 2024 長野ジュニアフォーラム</div>
+</footer>
