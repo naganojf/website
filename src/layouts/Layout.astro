@@ -19,6 +19,9 @@ const { title, desc } = Astro.props
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={desc} />
     <title>{title}</title>
+    <script>
+      import '../turboRouter.js'
+    </script>
   </head>
   <body class="h-full">
     <div class="navbar flex bg-base-200 p-4">
