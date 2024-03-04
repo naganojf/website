@@ -23,7 +23,7 @@ const res = await client.get({ endpoint: 'carousel' })
 ---
 
 <div class="relative">
-  <div class="swiper w-full">
+  <div class="swiper w-full aspect-[1200/630]">
     <div class="swiper-wrapper">
       {res.contents.map((entry: ResponseEntry) => (
       <div class="swiper-slide">
@@ -47,7 +47,7 @@ const res = await client.get({ endpoint: 'carousel' })
     </div>
   </div>
 </div>
-<div class="swiper-pagination" />
+<div class="swiper-pagination h-6" />
 
 <script>
   import Swiper from 'swiper'
