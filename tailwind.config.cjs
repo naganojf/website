@@ -12,7 +12,7 @@ module.exports = {
           "color-scheme": "light",
           "primary": "325d0d",
           "secondary": "#56624b",
-          "accent": "#7e5700",
+          "accent": "#0d1d5d",
           "neutral": "#5e5f59",
           "base-100": "#fdfdf5",
           "base-200": "#f3f5ea",
