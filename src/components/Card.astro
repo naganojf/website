@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets'
+import { Picture } from 'astro:assets'
 
 interface Props {
   slug: string
@@ -14,8 +14,8 @@ const { slug, title, description, image, dblcol } = Astro.props;
 
 <div class={`rounded-box p-6 bg-base-200 flex gap-6 flex-col ${dblcol ? 'lg:flex-row col-span-1 lg:col-span-2' : ''}`}>
   {image &&
-  <figure class={`mx-auto ${dblcol ? 'lg:w-64' : ''}`}>
-      <Image src={image + '?w=512'} alt={title} inferSize={true} class="aspect-[1200/630] object-cover object-center rounded-xl" />
+    <figure class={`mx-auto ${dblcol ? 'lg:w-64' : ''}`}>
+      <Picture src={image + '?w=512'} formats={['avif', 'webp']} alt={title} inferSize={true} class="aspect-[1200/630] object-cover object-center rounded-xl" />
     </figure>
   }
   <div class="grow flex flex-col gap-4">
