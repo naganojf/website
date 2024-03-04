@@ -1,0 +1,55 @@
+---
+import { createClient } from 'microcms-js-sdk'
+
+interface ResponseEntry {
+  id: string
+  createdAt: string
+  publishedAt: string
+  revisedAt: string
+  slug: string
+  title: string
+  description: string
+  image?: {
+    url: string
+    height: number
+    width: number
+  }
+  dblcol: boolean
+  contents: string
+}
+
+const client = createClient({
+  serviceDomain: import.meta.env.SECRET_MCMS_DOMAIN,
+  apiKey: import.meta.env.SECRET_MCMS_API_KEY,
+})
+const res = await client.get({ endpoint: 'pages' })
+const list = [
+  { title: 'ホーム', link: '/' },
+  ...res.contents.map((page: ResponseEntry) => (
+    { title: page.title, link: `/${page.slug}` }
+  )),
+  { title: 'お知らせ', link: '/notices' },
+]
+const active = Astro.url.pathname.replace(/\/$/, '') || '/'
+---
+
+<div class="rounded-box p-6 bg-base-200 flex flex-col gap-4">
+  <h2 class="font-bold text-xl">メニュー</h2>
+  <ul class="text-lg">
+    {list.map(item => (
+      <>
+        {item.link == active ?
+          <li class="p-3 rounded-xl bg-primary text-primary-content">
+            {item.title}
+          </li>
+        :
+          <li>
+            <a href={item.link} class="block p-3 rounded-xl hover:bg-base-300">
+              {item.title}
+            </a>
+          </li>
+        }
+      </>
+    ))}
+  </ul>
+</div>
