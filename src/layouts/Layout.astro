@@ -1,4 +1,6 @@
 ---
+import Menu from '../components/Menu.astro'
+
 export interface Props {
   title: string
   desc: string
@@ -18,8 +20,28 @@ const { title, desc } = Astro.props
     <title>{title}</title>
   </head>
   <body>
-    <div class="navbar bg-base-200">
-      <a href="/" class="btn btn-ghost normal-case text-xl font-bold">長野ジュニアフォーラム</a>
+    <div class="navbar bg-base-200 p-4">
+      <div class="navbar-start">
+        <a href="/" class="btn btn-ghost normal-case text-2xl font-bold">長野ジュニアフォーラム</a>
+      </div>
+      <div class="navbar-end lg:hidden">
+        <div class="drawer drawer-end">
+          <input id="menu-drawer" type="checkbox" class="drawer-toggle" />
+          <div class="drawer-content flex justify-end">
+            <label for="menu-drawer" class="btn btn-primary btn-circle drawer-button">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+            </label>
+          </div> 
+          <div class="drawer-side z-[100]">
+            <label for="menu-drawer" aria-label="close sidebar" class="drawer-overlay" />
+            <div class="w-80 min-h-full bg-base-200 text-base-content">
+              <Menu />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="w-full max-w-[1024px] mx-auto">
       <slot />

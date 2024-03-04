@@ -1,5 +1,6 @@
 ---
 import LayoutTwoCols from '../layouts/LayoutTwoCols.astro'
+import Menu from '../components/Menu.astro'
 import Notices from '../components/Notices.astro'
 import { createClient } from 'microcms-js-sdk'
 
@@ -36,13 +37,14 @@ const { title, description, contents } = Astro.props
 
 <LayoutTwoCols title={`${title} | 長野ジュニアフォーラム`} desc={description}>
   <div slot="left" set:html={contents} class="prose p-6 max-w-full" />
-  <div slot="right" class="p-6">
+  <div slot="right" class="p-6 flex flex-col gap-6">
+    <Menu />
     <Notices />
   </div>
 </LayoutTwoCols>
 
 <style is:global>
-  h2 {
+  .prose h2 {
     @apply bg-base-200 p-3 rounded-box !important;
   }
 </style>
