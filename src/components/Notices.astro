@@ -2,6 +2,10 @@
 import { createClient } from 'microcms-js-sdk'
 import { getTime, format } from 'date-fns'
 
+interface Props {
+  compact?: boolean
+}
+
 interface ResponseEntry {
   id: string
   createdAt: string
@@ -11,6 +15,7 @@ interface ResponseEntry {
   contents: string
 }
 
+const { compact } = Astro.props
 const client = createClient({
   serviceDomain: import.meta.env.SECRET_MCMS_DOMAIN,
   apiKey: import.meta.env.SECRET_MCMS_API_KEY,
@@ -31,8 +36,8 @@ const notices = res.contents.sort((a: ResponseEntry, b: ResponseEntry) => (
           <p class="text-lg font-semibold line-clamp-1">
             {notice.title}
           </p>
-          <p class="flex-none pl-4">
-            - {format(notice.createdAt, 'yyyy年M月d日')}
+          <p class={`flex-none ${compact ? 'pl-2' : 'pl-4'}`}>
+          - {format(notice.createdAt, compact ? 'yy/M/d' : 'yyyy年M月d日')}
           </p>
         </div>
         <pre class="line-clamp-2 whitespace-pre-wrap mx-2 my-1">{notice.contents}</pre>

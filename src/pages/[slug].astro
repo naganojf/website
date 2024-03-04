@@ -39,7 +39,7 @@ const { title, description, contents } = Astro.props
   <div slot="left" set:html={contents} class="prose p-6 max-w-full" />
   <div slot="right" class="p-6 grid gap-6">
     <Menu />
-    <Notices />
+    <Notices compact={true} />
   </div>
 </LayoutTwoCols>
 
