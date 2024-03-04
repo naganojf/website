@@ -12,18 +12,18 @@ interface Props {
 const { slug, title, description, image, dblcol } = Astro.props;
 ---
 
-<div class={`rounded-box p-6 bg-base-200 flex gap-6 flex-col ${dblcol ? 'lg:flex-row col-span-1 lg:col-span-2' : ''}`}>
+<div class={`rounded-box p-6 bg-base-200 grid grid-cols-3 gap-6 ${dblcol ? 'lg:flex-row col-span-1 lg:col-span-2' : ''}`}>
   {image &&
-    <figure class={`mx-auto ${dblcol ? 'lg:w-64' : ''}`}>
+    <figure class={`mx-auto col-span-3 flex items-center ${dblcol ? 'lg:col-span-1' : ''}`}>
       <Picture src={image + '?w=512'} formats={['avif', 'webp']} alt={title} inferSize={true} class="aspect-[1200/630] object-cover object-center rounded-xl" />
     </figure>
   }
-  <div class="grow flex flex-col gap-4">
+  <div class={`flex flex-col col-span-3 ${image && dblcol ? 'lg:col-span-2' : ''}`}>
     <div class="grow">
       <h2 class="font-bold text-xl">{title}</h2>
       <pre class="whitespace-pre-wrap">{description}</pre>
     </div>
-    <div class="flex justify-end">
+    <div class="flex justify-end mt-4">
       <a href={`/${slug}`}>
         <button class="btn btn-primary">詳しく見る</button>
       </a>

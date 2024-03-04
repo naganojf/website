@@ -33,7 +33,7 @@ const list = [
 const active = Astro.url.pathname.replace(/\/$/, '') || '/'
 ---
 
-<div class="rounded-box p-6 bg-base-200 flex flex-col gap-4">
+<div class="rounded-box p-6 bg-base-200 grid gap-4">
   <h2 class="font-bold text-xl">メニュー</h2>
   <ul class="text-lg">
     {list.map(item => (
