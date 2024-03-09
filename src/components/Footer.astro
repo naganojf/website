@@ -38,9 +38,11 @@ const list = [
     <nav>
       <p class="text-lg font-bold mb-2">メニュー</p>
       {list.map(item => (
-        <a href={item.link} class="block text-sm p-2 hover:underline">
-          {item.title}
-        </a>
+        <div class="p-2">
+          <a href={item.link} class="text-sm hover:underline">
+            {item.title}
+          </a>
+        </div>
       ))}
     </nav> 
     <div class="text-sm">
