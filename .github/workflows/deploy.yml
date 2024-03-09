@@ -5,6 +5,9 @@ on:
   # Using a different branch name? Replace `main` with your branch’s name
   push:
     branches: [ master ]
+  repository_dispatch:
+    branches: [ master ]
+    types: [ microcms_update ]
   # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
